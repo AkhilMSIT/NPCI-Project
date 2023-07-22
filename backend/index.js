@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors')
-const pool = require('./db');
+const { pool, createTableIfNotExists } = require('./db');
 
 
 
@@ -10,10 +10,11 @@ const PORT = 5000;
 
 app.use(cors())
 app.use(express.json());
+createTableIfNotExists();
 
 
 app.post('/api/insertdata', (req, res) => {
-    console.log(req)
+    // console.log(req)
     const { username, email, password } = req.body;
 
     const query = 'INSERT INTO user_data (username, email, password) VALUES ($1, $2, $3)';
